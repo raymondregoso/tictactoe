@@ -18,7 +18,14 @@ const Home = () => {
     <>
       <div className="home-container">
         <h1>Tic-Tac-Toe</h1>
-
+        <div className="button-container">
+          <button className="btn-home" onClick={handleStartNewGame}>
+            START NEW GAME
+          </button>
+          <button className="btn-home-how" onClick={handleHowToPlay}>
+            HOW TO PLAY
+          </button>
+        </div>
         {/* Flex container for history and image */}
         <div className="content-container">
           <div className="history-section">
@@ -33,14 +40,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="button-container">
-          <button className="btn-home" onClick={handleStartNewGame}>
-            START NEW GAME
-          </button>
-          <button className="btn-home-how" onClick={handleHowToPlay}>
-            HOW TO PLAY
-          </button>
-        </div>
+        
       </div>  
       <Footer />
     </>
