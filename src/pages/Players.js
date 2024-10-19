@@ -60,7 +60,7 @@ const Players = () => {
       <Col md={4}>
         <div className="players-form-container" style={{ backgroundColor: '#fff', borderRadius: '8px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', padding: '20px' }}>
           <Form onSubmit={savePlayers}>
-            <h1 className="text-center mb-4">Player's Name</h1>
+            <h1 className="text-center mb-4">Enter Your Name</h1>
             <Form.Group controlId="player1Name">
               <Form.Control
                 type="text"
