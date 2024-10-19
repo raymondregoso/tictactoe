@@ -1,3 +1,4 @@
+// Dependencies
 import { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Square from "./Square";
@@ -5,6 +6,7 @@ import EndGame from "./EndGame";
 import Footer from '../components/Footer';
 import Swal from 'sweetalert2';
 
+// Winning pattern and condition
 const INITIAL = "";
 const winningCombination = [
   [0, 1, 2],
@@ -28,6 +30,7 @@ function Tictactoe() {
   const [winCount, setWinCount] = useState({ player1Wins: 0, player2Wins: 0, draws: 0 });
   const [winner, setWinner] = useState(null);
 
+  //update the players stat (win, loss, and draw)
   const updatePlayerStats = async (player1, player2, result) => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/players/stats`, {
@@ -82,6 +85,7 @@ function Tictactoe() {
     }
   }, [gameEnd, grid, player1, player2]);
 
+// restart the game function
   const restartGame = () => {
     setGrid(Array(9).fill(INITIAL));
     setGameEnd(false);
@@ -89,6 +93,7 @@ function Tictactoe() {
     setWinner(null);
   };
 
+// save the game function
   const savedRecord = () => {
     restartGame();
     Swal.fire({
@@ -103,6 +108,8 @@ function Tictactoe() {
     isGameOver();
   }, [grid, isGameOver]);
 
+  // Update the grid with the player's mark ('X' or 'O') at the clicked position,
+  // Toggle the player's turn, and ensure the move is valid or not already filled and game not ended.
   const handleClick = (id) => {
     if (grid[id] === INITIAL && !gameEnd) {
       setGrid((prevGrid) => prevGrid.map((item, index) => (index === id ? (isPlayerOneTurn ? "X" : "O") : item)));
@@ -113,6 +120,7 @@ function Tictactoe() {
   return (
     <div className="game-view">
       <span className="win-history">
+        {/*Show and counts the wins of each player*/}
         {player1}'s [X] WINS: {winCount.player1Wins}
         <br />
         {player2}'s [O] WINS: {winCount.player2Wins}

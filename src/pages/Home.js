@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import History from '../components/History';
 
-export default function Home() {
+const Home = () => {
   const navigate = useNavigate(); 
 
   const handleStartNewGame = () => {
@@ -46,3 +46,6 @@ export default function Home() {
     </>
   );
 }
+
+
+export default Home;

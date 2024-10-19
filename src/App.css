@@ -1,9 +1,12 @@
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "PT Sans", sans-serif;
+}
+
+body {
+  overflow-x: hidden; 
 }
 
 h1 {
@@ -13,72 +16,66 @@ h1 {
   color: blue;
   font-size: 4rem;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-
 }
 
-
+/*Footer Start*/
 .footer-message {
   text-align: center;
   color: blue;
   margin-top: 2rem;
 }
+/*Footer End*/
 
+
+/*Home Page Start*/
 .btn-home {
   background: rgb(39, 16, 255);
   color: white;
   border: rgb(20, 255, 229);
   font-size: 1rem;
   font-weight: 700;
-  padding: 0px 10px;
+  padding: 0 10px;
   cursor: pointer;
   border-radius: 10px;
-  transition: 0.3 ease-out;
+  transition: 0.3s ease-out;
   height: 2rem;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   margin-right: 15px;
 }
 
-.btn-home:hover {
-  background: green;
-  color: lightgray;
-  border: darkgreen;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5)
- 
-}
-
 .btn-home-how {
-  background: rgb(245, 178, 39);
+  background: rgb(233, 150, 30);
   color: white;
   border: rgb(20, 255, 229);
   font-size: 1rem;
   font-weight: 700;
-  padding: 0px 10px;
+  padding: 0 10px;
   cursor: pointer;
   border-radius: 10px;
-  transition: 0.3 ease-out;
+  transition: 0.3s ease-out;
   height: 2rem;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5)
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  margin-right: 15px;
 }
 
-.btn-home:hover {
+.btn-home:hover, .btn-home-how:hover {
   background: green;
   color: lightgray;
   border: darkgreen;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5)
- 
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
-
 
 .button-container {
   display: flex;            
   justify-content: center; 
   align-items: center;     
   margin-top: 20px; 
- 
 }
+/*Home Page End*/
 
 
 
+/*Square Component Start*/
 .square {
   background: rgba(15, 255, 62, 0.8);
   height: 5rem;
@@ -96,10 +93,14 @@ h1 {
 .square:hover {
   background: rgb(27, 255, 255);
 }
- 
+
 .square.clicked {
   background: green;
 }
+
+/*Square Component End*/
+
+
 
 .App {
   height: 100vh;
@@ -107,9 +108,11 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
+
+
+/*Player start*/
 .players-form-container {
   justify-items: center;
   text-align: center;
@@ -149,43 +152,19 @@ h1 {
   margin-top: 10px;
   cursor: pointer;
   border-radius: 10px;
-  transition: 0.3 ease-out;
+  transition: 0.3s ease-out;
   height: 2rem;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5)
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .btn:hover {
   background: green;
   color: lightgray;
   border: darkgreen;
-  
-}
-
-#startBtn {
-  background: rgb(39, 16, 255);
-  color: white;
-  border: rgb(20, 255, 229);
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 0px 10px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 10px;
-  transition: 0.3 ease-out;
-  height: 2rem;
-  margin-right: 15px;
-}
-
-#startBtn:hover {
-  background: green;
-  color: lightgray;
-  border: darkgreen;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-
 }
 
 #backBtn {
-  background: rgb(245, 178, 39);
+  background: rgb(233, 150, 30);
   color: white;
   border: rgb(20, 255, 229);
   font-size: 1rem;
@@ -194,22 +173,24 @@ h1 {
   margin-top: 10px;
   cursor: pointer;
   border-radius: 10px;
-  transition: 0.3 ease-out;
+  transition: 0.3s ease-out;
   height: 2rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  margin-left: 20px;
 }
 
 #backBtn:hover {
   background: green;
   color: lightgray;
   border: darkgreen;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-
 }
+/*Player end*/
 
+
+/*History Start*/
 .win-message {
   color: white;
   font-size: 5rem;
-
 }
 
 .win-history {
@@ -219,11 +200,9 @@ h1 {
 }
 
 .game-view {
-   text-align: center;
-   margin-top: 5rem;
-   
+  text-align: center;
+  margin-top: 5rem;
 }
-
 
 .home-container {
   text-align: center;
@@ -232,54 +211,55 @@ h1 {
 
 .content-container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-top: 20px;
-  padding: 0 40px;
+  flex-direction: row; 
+  justify-content: space-around; 
+  align-items: flex-start; 
+  margin: 20px 0; 
+  padding: 0 20px;
+  overflow: hidden; 
 }
 
 .history-section {
-  flex: 1;
-  margin-right: 150px;
+  flex: 1; 
+  margin-right: 20px; 
 }
 
 .image-section {
-  flex: 1;
+  flex: 1; 
   text-align: right;
 }
 
 .image-section img {
-  width: 460px;
-  height: 325px;
-  margin-right: 50px;
+  max-width: 100%; 
+  height: auto; 
   border-radius: 20px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5)
 }
 
 .button-container {
   margin-top: 20px;
 }
 
+
 .game-history {
   padding: 20px;
   background-color: #f9f9f9; 
   border-radius: 20px; 
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  margin-right: -80px;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
   color: Red;
- 
 }
 
 .game-history th {
   color: blue;
 }
+/*History End*/
 
 
+/*How to Play page start*/
 .how-to-play {
   position: absolute;
   top: 50%;
@@ -302,4 +282,24 @@ h2 {
 .how-to-play ul,
 .how-to-play ol {
   padding-left: 20px;
+}
+/*How to Play page end*/
+
+
+
+
+/* Media Query for screens below 400px */
+@media (max-width: 400px) {
+  .content-container {
+    flex-direction: column; 
+    padding: 0; 
+  }
+  
+  .image-section {
+    order: 2; 
+  }
+
+  .history-section {
+    order: 1; 
+  }
 }

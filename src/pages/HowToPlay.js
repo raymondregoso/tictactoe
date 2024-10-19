@@ -1,9 +1,11 @@
+// Dependencies
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const HowToPlay = () => {
   const navigate = useNavigate(); 
 
+// Close button to navigate in Homepage
   const handleClose = () => {
     navigate('/');
   };

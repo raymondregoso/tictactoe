@@ -1,15 +1,17 @@
+// Dependencies
 import { useState, useEffect } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 
-export default function Players() {
+const Players = () => {
   const [player1, setPlayer1] = useState('');
   const [player2, setPlayer2] = useState('');
   const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
 
+  // Save the player's name in mongoDB using fetch
   const savePlayers = (e) => {
     e.preventDefault();
 
@@ -42,7 +44,7 @@ export default function Players() {
     setPlayer2('');
   };
 
-  // Effect to enable/disable the "Start" button based on input
+  // Enable the start button condition
   useEffect(() => {
     setIsActive(player1 !== '' && player2 !== '');
   }, [player1, player2]);
@@ -105,3 +107,6 @@ export default function Players() {
     
   );
 }
+
+
+export default Players;

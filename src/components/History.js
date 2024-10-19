@@ -1,3 +1,4 @@
+// Dependencies
 import React, { useEffect, useState } from 'react';
 
 const History = () => {
@@ -55,7 +56,7 @@ const History = () => {
             </tr>
           </thead>
           <tbody>
-            {gameHistory.slice(0, 5).map((game, index) => (
+            {gameHistory.slice(0, 10).map((game, index) => (
               <tr key={index}>
                 <td>{game.player1}</td>
                 <td>{game.player2}</td>
