@@ -8,6 +8,8 @@ import './App.css';
 // pages
 import Home from './pages/Home';
 import Players from './pages/Players';
+import HowToPlay from './pages/HowToPlay';
+
 
 const App = () => {
    return (
@@ -15,7 +17,8 @@ const App = () => {
       <Container>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/players" element={<Players />} /> 
+          <Route path="/players" element={<Players />} />
+          <Route path="/HowToPlay" element={<HowToPlay />} />  
           <Route path="/Tictactoe" element={<Tictactoe />} /> 
         </Routes>
       </Container>

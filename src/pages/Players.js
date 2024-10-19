@@ -28,7 +28,7 @@ export default function Players() {
             icon: 'success',
             text: 'Click OK to Start the Game!',
           });
-          navigate('/Tictactoe', { state: { player1, player2 } }); // Pass player names to the Tictactoe page
+          navigate('/Tictactoe', { state: { player1, player2 } }); 
         } else {
           Swal.fire({
             title: 'Error',
@@ -47,19 +47,25 @@ export default function Players() {
     setIsActive(player1 !== '' && player2 !== '');
   }, [player1, player2]);
 
+  // Function to back to the home page
+  const handleBackToHome = () => {
+    navigate('/'); 
+  };
+
+
   return (
     <Row className="my-5 justify-content-center">
       <Col md={4}>
         <div className="players-form-container" style={{ backgroundColor: '#fff', borderRadius: '8px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', padding: '20px' }}>
           <Form onSubmit={savePlayers}>
-            <h1 className="text-center mb-4">Start New Game</h1>
+            <h1 className="text-center mb-4">Players Name</h1>
             <Form.Group controlId="player1Name">
               <Form.Control
                 type="text"
-                placeholder="Enter player 1 name"
+                placeholder="  Enter player 1 name"
                 value={player1}
                 onChange={(e) => setPlayer1(e.target.value)}
-                style={{ marginBottom: '15px', height: '40px' }}
+                style={{ marginBottom: '15px', height: '40px', borderRadius: '20px', paddingLeft: '10px', }}
                 required
               />
             </Form.Group>
@@ -67,10 +73,10 @@ export default function Players() {
             <Form.Group controlId="player2Name">
               <Form.Control
                 type="text"
-                placeholder="Enter player 2 name"
+                placeholder="  Enter player 2 name"
                 value={player2}
                 onChange={(e) => setPlayer2(e.target.value)}
-                style={{ marginBottom: '15px', height: '40px' }}
+                style={{ marginBottom: '15px', height: '40px', borderRadius: '20px', paddingLeft: '10px', }}
                 required
               />
             </Form.Group>
@@ -82,6 +88,14 @@ export default function Players() {
               disabled={!isActive}
             >
               Start Game
+            </Button>
+            <Button
+              variant="primary"
+              type="submit"
+              id="backBtn"
+              onClick={handleBackToHome} 
+            >
+              Back to Home
             </Button>
           </Form>
           <Footer />

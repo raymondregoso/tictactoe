@@ -10,6 +10,9 @@ export default function Home() {
   const handleStartNewGame = () => {
     navigate('/players');
   };
+  const handleHowToPlay = () => {
+    navigate('/HowToPlay');
+  };
 
   return (
     <>
@@ -25,8 +28,7 @@ export default function Home() {
             <img
               src="https://i.postimg.cc/2yqHxPjr/tictactoe.png"
               alt="Tic Tac Toe Game"
-              width="380"
-              height="266"
+             
             />
           </div>
         </div>
@@ -34,6 +36,9 @@ export default function Home() {
         <div className="button-container">
           <button className="btn-home" onClick={handleStartNewGame}>
             START NEW GAME
+          </button>
+          <button className="btn-home-how" onClick={handleHowToPlay}>
+            HOW TO PLAY
           </button>
         </div>
       </div>  
