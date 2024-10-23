@@ -1,4 +1,4 @@
-// Dependencies
+//Dependencies
 import { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Square from "./Square";
@@ -23,37 +23,40 @@ function Tictactoe() {
   const navigate = useNavigate();
   const location = useLocation();
   const { player1, player2 } = location.state || { player1: "Player 1", player2: "Player 2" };
+  
   const [grid, setGrid] = useState(Array(9).fill(INITIAL));
   const [isPlayerOneTurn, setIsPlayerOneTurn] = useState(true);
   const [gameEnd, setGameEnd] = useState(false);
   const [draw, setDraw] = useState(false);
-  const [winCount, setWinCount] = useState({ player1Wins: 0, player2Wins: 0, draws: 0 });
+  const [currentGameResults, setCurrentGameResults] = useState({ wins: 0, losses: 0, draws: 0 });
   const [winner, setWinner] = useState(null);
 
-  //update the players stat (win, loss, and draw)
-  const updatePlayerStats = async (player1, player2, result) => {
+  // Fetch previous scores from MongoDB
+  const fetchScores = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/players/stats`, {
-        method: 'PUT',
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/players/scores?player1=${player1}&player2=${player2}`);
+      const data = await response.json();
+      setCurrentGameResults(data || { wins: 0, losses: 0, draws: 0 });
+    } catch (error) {
+      console.error('Failed to fetch scores', error);
+    }
+  };
+
+  // Save the game result to MongoDB
+  const saveGameResult = async (player1, player2, wins, losses, draws) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/players/results`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ player1, player2, result }),
+        body: JSON.stringify({ player1, player2, wins, losses, draws }),
       });
 
       const data = await response.json();
-      console.log('Player stats updated successfully', data);
-      
-      
-      if (result === 'win') {
-        setWinCount((prev) => ({ ...prev, player1Wins: prev.player1Wins + 1 }));
-      } else if (result === 'lose') {
-        setWinCount((prev) => ({ ...prev, player2Wins: prev.player2Wins + 1 }));
-      } else if (result === 'draw') {
-        setWinCount((prev) => ({ ...prev, draws: prev.draws + 1 }));
-      }
+      console.log('Game results saved successfully', data);
     } catch (error) {
-      console.error('Failed to update player stats', error);
+      console.error('Failed to save game results', error);
     }
   };
 
@@ -65,14 +68,14 @@ function Tictactoe() {
         if (grid[a] === "X" && grid[b] === "X" && grid[c] === "X") {
           setGameEnd(true);
           setWinner(player1);
-          updatePlayerStats(player1, player2, 'win');
+          setCurrentGameResults((prev) => ({ ...prev, wins: prev.wins + 1 })); // Update wins for player1
           return;
         }
 
         if (grid[a] === "O" && grid[b] === "O" && grid[c] === "O") {
           setGameEnd(true);
           setWinner(player2);
-          updatePlayerStats(player1, player2, 'lose');
+          setCurrentGameResults((prev) => ({ ...prev, losses: prev.losses + 1 })); // Update losses for player2
           return;
         }
       }
@@ -80,12 +83,11 @@ function Tictactoe() {
       if (!grid.includes(INITIAL)) {
         setDraw(true);
         setGameEnd(true);
-        updatePlayerStats(player1, player2, 'draw');
+        setCurrentGameResults((prev) => ({ ...prev, draws: prev.draws + 1 })); // Update draws
       }
     }
   }, [gameEnd, grid, player1, player2]);
 
-// restart the game function
   const restartGame = () => {
     setGrid(Array(9).fill(INITIAL));
     setGameEnd(false);
@@ -93,8 +95,8 @@ function Tictactoe() {
     setWinner(null);
   };
 
-// save the game function
   const savedRecord = () => {
+    saveGameResult(player1, player2, currentGameResults.wins, currentGameResults.losses, currentGameResults.draws);
     restartGame();
     Swal.fire({
       title: 'THANK YOU',
@@ -105,32 +107,31 @@ function Tictactoe() {
   };
 
   useEffect(() => {
+    fetchScores(); 
     isGameOver();
   }, [grid, isGameOver]);
 
-  // Update the grid with the player's mark ('X' or 'O') at the clicked position,
-  // Toggle the player's turn, and ensure the move is valid or not already filled and game not ended.
   const handleClick = (id) => {
     if (grid[id] === INITIAL && !gameEnd) {
       setGrid((prevGrid) => prevGrid.map((item, index) => (index === id ? (isPlayerOneTurn ? "X" : "O") : item)));
       setIsPlayerOneTurn((prev) => !prev);
-    }
+    } 
   };
 
   return (
     <div className="game-view">
       <span className="win-history">
-        {/*Show and counts the wins of each player*/}
-        {player1}'s [X] WINS: {winCount.player1Wins}
+        {/* Show and counts the wins of each player */}
+        {player1}'s [X] WINS: {currentGameResults.wins}
         <br />
-        {player2}'s [O] WINS: {winCount.player2Wins}
+        {player2}'s [O] WINS: {currentGameResults.losses}
         <br />
-        DRAWS: {winCount.draws}
+        DRAWS: {currentGameResults.draws}
       </span>
 
       {gameEnd && (
         <EndGame
-          winCount={{ X: winCount.player1Wins, O: winCount.player2Wins }}
+          winCount={{ X: currentGameResults.wins, O: currentGameResults.losses }}
           restartGame={restartGame}
           draw={draw}
           savedRecord={savedRecord}
@@ -141,7 +142,7 @@ function Tictactoe() {
       )}
       <Square clickedArray={grid} handleClick={handleClick} />
       <button className="btn" onClick={savedRecord}>
-        END
+        STOP
       </button>
       <Footer />
     </div>
@@ -149,3 +150,8 @@ function Tictactoe() {
 }
 
 export default Tictactoe;
+
+
+
+
+

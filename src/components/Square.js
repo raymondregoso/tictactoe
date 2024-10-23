@@ -1,3 +1,4 @@
+//Dependencies
 import React from 'react';
 
 function Square({ clickedArray, handleClick }) {
@@ -21,3 +22,4 @@ function Square({ clickedArray, handleClick }) {
 }
 
 export default Square;
+
